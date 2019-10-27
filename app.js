@@ -8,7 +8,7 @@ function Book(title, author, pages) {
 }
 
 Book.prototype.info = function() {
-  const status = this.read ? 'Read' | 'Not Read'
+  const status = this.read ? 'Read' : 'Not Read';
   return `${this.title} | ${this.author} | ${this.pages} pages | ${status}`;
 }
 
