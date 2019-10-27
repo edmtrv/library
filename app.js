@@ -20,7 +20,12 @@ function addBookToLibrary(name, author, pages) {
 
 // INTERFACE
 
-
+function render() {
+  booksLibrary.forEach(book => {
+    const bookDiv = showBook(book);
+    booksUI.append(bookDiv);
+  });
+}
 
 function showBook(book) {
   const div = document.createElement('div');
@@ -31,3 +36,5 @@ function showBook(book) {
   return div;
 }
 
+
+const booksUI = document.querySelector('.books');
