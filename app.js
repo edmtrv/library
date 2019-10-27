@@ -24,13 +24,18 @@ function render() {
 
 function showBook(book) {
   const div = document.createElement('div');
-  const status = book.read ? 'Read' : 'Not Read';
-  const html = `${book.title} | ${book.author} | ${book.pages} pages | ${status}`;
 
   div.classList.add('book');
-  div.textContent = html;
+  div.textContent = createBookText(book);
 
   return div;
+}
+
+function createBookText(book) {
+  const status = book.read ? 'Read' : 'Not Read';
+  const text = `${book.title} | ${book.author} | ${book.pages} pages | ${status}`;
+
+  return text;
 }
 
 const booksUI = document.querySelector('.books');
