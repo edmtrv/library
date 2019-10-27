@@ -16,3 +16,18 @@ function addBookToLibrary(name, author, pages) {
   const bookToAdd = new Book(name, author, pages);
   bookLibrary.push(bookToAdd);
 }
+
+
+// INTERFACE
+
+
+
+function showBook(book) {
+  const div = document.createElement('div');
+
+  div.classList.add('book');
+  div.textContent = book.info();
+
+  return div;
+}
+
