@@ -7,11 +7,6 @@ function Book(title, author, pages) {
   this.read = false;
 }
 
-Book.prototype.info = function() {
-  const status = this.read ? 'Read' : 'Not Read';
-  return `${this.title} | ${this.author} | ${this.pages} pages | ${status}`;
-}
-
 function addBookToLibrary(name, author, pages) {
   const bookToAdd = new Book(name, author, pages);
   bookLibrary.push(bookToAdd);
@@ -29,12 +24,13 @@ function render() {
 
 function showBook(book) {
   const div = document.createElement('div');
+  const status = book.read ? 'Read' : 'Not Read';
+  const html = `${book.title} | ${book.author} | ${book.pages} pages | ${status}`;
 
   div.classList.add('book');
-  div.textContent = book.info();
+  div.textContent = html;
 
   return div;
 }
-
 
 const booksUI = document.querySelector('.books');
