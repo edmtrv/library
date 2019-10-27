@@ -1,4 +1,4 @@
-const bookLibrary = [];
+const booksLibrary = [];
 
 function Book(title, author, pages) {
   this.title = title;
@@ -9,7 +9,7 @@ function Book(title, author, pages) {
 
 function addBookToLibrary(name, author, pages) {
   const bookToAdd = new Book(name, author, pages);
-  bookLibrary.push(bookToAdd);
+  booksLibrary.push(bookToAdd);
 }
 
 
@@ -39,3 +39,5 @@ function createBookText(book) {
 }
 
 const booksUI = document.querySelector('.books');
+
+render();
