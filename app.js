@@ -14,7 +14,7 @@ Game.prototype.addTime = function(minutes) {
 }
 
 function addGameToLibrary(title, genre, price, description) {
-  const gameToAdd = new Game(name, author, pages);
+  const gameToAdd = new Game(title, genre, price, description);
   gamesLibrary.push(gameToAdd);
 }
 
