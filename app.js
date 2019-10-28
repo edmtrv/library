@@ -19,18 +19,17 @@ function addBookToLibrary(name, author, pages) {
 
 function render() {
   booksLibrary.forEach(book => {
-    const bookDiv = showBook(book);
-    booksUI.append(bookDiv);
+    renderBook(book, booksUI);
   });
 }
 
-function showBook(book) {
+function renderBook(book, on) {
   const div = document.createElement('div');
 
   div.classList.add('book');
   div.textContent = createBookText(book);
 
-  return div;
+  on.append(div);
 }
 
 function createBookText(book) {
