@@ -5,12 +5,11 @@ function Game(title, genre, price, description) {
   this.genre = genre;
   this.price = price;
   this.description = description;
-  this.playTime = 0;
+  this.hoursPlayed = 0;
 }
 
-Book.prototype.info = function() {
-  const status = this.read ? 'Read' : 'Not Read';
-  return `${this.title} | ${this.author} | ${this.pages} pages | ${status}`;
+Game.prototype.addTime = function(minutes) {
+  this.hoursPlayed += (minutes / 60);
 }
 
 function addGameToLibrary(title, genre, price, description) {
