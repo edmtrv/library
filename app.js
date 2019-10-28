@@ -1,52 +1,44 @@
-// Backend
+const gamesLibrary = [];
 
-const booksLibrary = [];
-
-function Book(title, author, pages) {
+function Game(title, genre, price, description) {
   this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = false;
+  this.genre = genre;
+  this.price = price;
+  this.description = description;
+  this.hoursPlayed = 0;
 }
 
-function addBookToLibrary(name, author, pages) {
-  const bookToAdd = new Book(name, author, pages);
-  booksLibrary.push(bookToAdd);
+
+Game.prototype.addTime = function(minutes) {
+  this.hoursPlayed += (minutes / 60);
 }
 
+function addGameToLibrary(title, genre, price, description) {
+  const gameToAdd = new Game(name, author, pages);
+  gamesLibrary.push(gameToAdd);
+}
 
 // UI
 
 function render() {
-  booksLibrary.forEach(book => {
-    renderBook(book, booksUI);
+  gamesLibrary.forEach(game => {
+    renderGame(game, gamesUI);
   });
 }
 
-function renderBook(book, on) {
+function renderGame(game, on) {
   const div = document.createElement('div');
 
-  div.classList.add('book');
-  div.textContent = createBookText(book);
+  div.classList.add('game');
+  div.textContent = game;
 
   on.append(div);
 }
 
-function createBookText(book) {
-  const status = book.read ? 'Read' : 'Not Read';
-  const text = `${book.title} | ${book.author} | ${book.pages} pages | ${status}`;
 
-  return text;
-}
+const gamesUI = document.querySelector('.games');
+const addBookBtn = document.querySelector('.add-game');
 
-function handleAddBook() {
-
-}
-
-
-const booksUI = document.querySelector('.books');
-const addBookBtn = document.querySelector('.add-book');
-
-addBookBtn.addEventListener('click', handleAddBook);
+addBookBtn.addEventListener('click', handleAddGame);
 
 render();
