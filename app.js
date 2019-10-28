@@ -1,10 +1,11 @@
-const bookLibrary = [];
+const gamesLibrary = [];
 
-function Book(title, author, pages) {
+function Game(title, genre, price, description) {
   this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = false;
+  this.genre = genre;
+  this.price = price;
+  this.description = description;
+  this.playTime = 0;
 }
 
 Book.prototype.info = function() {
@@ -12,7 +13,7 @@ Book.prototype.info = function() {
   return `${this.title} | ${this.author} | ${this.pages} pages | ${status}`;
 }
 
-function addBookToLibrary(name, author, pages) {
-  const bookToAdd = new Book(name, author, pages);
-  bookLibrary.push(bookToAdd);
+function addGameToLibrary(title, genre, price, description) {
+  const gameToAdd = new Game(name, author, pages);
+  gamesLibrary.push(gameToAdd);
 }
