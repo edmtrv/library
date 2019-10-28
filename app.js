@@ -1,3 +1,5 @@
+// Backend
+
 const booksLibrary = [];
 
 function Book(title, author, pages) {
@@ -13,7 +15,7 @@ function addBookToLibrary(name, author, pages) {
 }
 
 
-// INTERFACE
+// UI
 
 function render() {
   booksLibrary.forEach(book => {
@@ -38,6 +40,14 @@ function createBookText(book) {
   return text;
 }
 
+function handleAddBook() {
+
+}
+
+
 const booksUI = document.querySelector('.books');
+const addBookBtn = document.querySelector('.add-book');
+
+addBookBtn.addEventListener('click', handleAddBook);
 
 render();
