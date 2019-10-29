@@ -54,7 +54,7 @@ function renderGame(game, id, row) {
 }
 
 function createGameCard({title, genre, price, description, hoursPlayed}, id) {
-  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><div class="d-flex"><div class="mr-2"><button class="btn btn-outline-danger remove-game" data-game="${id}">Remove</button></div><div class="mr-1"><button class="btn btn-outline-primary add-time" data-game="${id}">Add Time</button></div><div class="w-25"><label for="minutes" class="sr-only">Minutes Played</label><input type="number" name="minutes" id="minutes" class="form-control" placeholder="Mins"></div></div>
+  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><div class="d-flex"><div class="mr-2"><button class="btn btn-outline-danger remove-game" data-game="${id}">Remove</button></div><div class="mr-1"><button class="btn btn-outline-primary add-time" data-game="${id}">Add Time</button></div><div class="w-25"><label for="minutes" class="sr-only">Minutes Played</label><input type="number" name="minutes" id="minutes-${id}" class="form-control" placeholder="Mins"></div></div>
   </section></article>`;
 }
 
@@ -74,6 +74,8 @@ function handleAddGame() {
 function handleClickOnGames(e) {
   if (e.target.classList.contains('remove-game')) {
     handleRemoveGame(e.target);
+  } else if (e.target.classList.contains('add-time')) {
+    handleAddTime(e.target);
   }
 }
 
@@ -83,6 +85,14 @@ function handleRemoveGame(btn) {
   render();
 }
 
+function handleAddTime(btn) {
+  const id = btn.dataset.game;
+  const minutes = document.getElementById(`minutes-${id}`).value;
+  if (minutes === '') return;
+  const game = gamesLibrary[id];
+  game.addTime(minutes);
+  render();
+}
 
 const allCards = document.querySelector('.games');
 const addGameBtn = document.querySelector('.add-game');
