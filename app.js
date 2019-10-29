@@ -32,13 +32,13 @@ function removeGameFromLibrary(id) {
 // UI
 
 function render() {
-  if (gamesLibrary.length > 0) gamesUI.innerHTML = '';
+  if (gamesLibrary.length > 0) allCards.innerHTML = '';
   let row;
   gamesLibrary.forEach((game, index) => {
     if (index % 3 == 0) {
       row = document.createElement('div');
       row.classList.add('row', 'mt-3');
-      gamesUI.append(row);
+      allCards.append(row);
     }
     renderGame(game, index, row);
   });
@@ -54,7 +54,8 @@ function renderGame(game, id, row) {
 }
 
 function createGameCard({title, genre, price, description, hoursPlayed}, id) {
-  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><button class="btn btn-outline-danger mr-1 remove-game" data-game="${id}">Remove</button><button class="btn btn-outline-primary" data-game="${id}" data-toggle="modal" data-target="#addTimeModal">Add Time</button></section></article>`;
+  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><div class="d-flex"><div class="mr-2"><button class="btn btn-outline-danger remove-game" data-game="${id}">Remove</button></div><div class="mr-1"><button class="btn btn-outline-primary add-time" data-game="${id}">Add Time</button></div><div class="w-25"><label for="minutes" class="sr-only">Minutes Played</label><input type="number" name="minutes" id="minutes" class="form-control" placeholder="Mins"></div></div>
+  </section></article>`;
 }
 
 function handleAddGame() {
@@ -63,10 +64,10 @@ function handleAddGame() {
 
   for (let field of formFields) {
     game.push(field.value);
+    field.value = '';
   }
 
   addGameToLibrary(...game);
-
   render();
 }
 
@@ -82,17 +83,14 @@ function handleRemoveGame(btn) {
   render();
 }
 
-function handleAddTime(e) {
-  console.dir(e);
-}
 
-const gamesUI = document.querySelector('.games');
+const allCards = document.querySelector('.games');
 const addGameBtn = document.querySelector('.add-game');
 const addTimeBtn = document.querySelector('.add-time');
 
 addGameBtn.addEventListener('click', handleAddGame);
-gamesUI.addEventListener('click', handleClickOnGames);
-addTimeBtn.addEventListener('click', handleAddTime);
+allCards.addEventListener('click', handleClickOnGames);
+
 
 addGameToLibrary('GTA V', 'Action', 29.99, 'The game is played from either a third-person or first-person perspective, and its world is navigated on foot or by vehicle. Players control the three lead protagonists throughout single-player and switch between them both during and outside missions.');
 
