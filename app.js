@@ -1,5 +1,5 @@
 
-const gamesLibrary = [];
+let gamesLibrary = [];
 
 function Game(title, genre, price, description) {
   this.title = title;
@@ -16,7 +16,17 @@ Game.prototype.addTime = function(minutes) {
 
 function addGameToLibrary(title, genre, price, description) {
   const gameToAdd = new Game(title, genre, price, description);
-  gamesLibrary.push(gameToAdd);
+  gamesLibrary = [
+    ...gamesLibrary,
+    gameToAdd
+  ];
+}
+
+function removeGameFromLibrary(id) {
+  gamesLibrary = [
+    ...gamesLibrary.slice(0, id),
+    ...gamesLibrary.slice(id + 1)
+  ];
 }
 
 // UI
@@ -30,21 +40,21 @@ function render() {
       row.classList.add('row', 'mt-3');
       gamesUI.append(row);
     }
-    renderGame(game, row);
+    renderGame(game, index, row);
   });
 }
 
-function renderGame(game, row) {
+function renderGame(game, id, row) {
   const col = document.createElement('div');
 
   col.classList.add('col-4');
-  const card = createGameCard(game);
+  const card = createGameCard(game, id);
   col.innerHTML = card;
   row.append(col);
 }
 
-function createGameCard({title, genre, price, description, hoursPlayed}) {
-  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><button class="btn btn-outline-danger mr-1 remove-game">Remove</button><button class="btn btn-outline-primary">Add Time</button></section></article>`;
+function createGameCard({title, genre, price, description, hoursPlayed}, id) {
+  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><button class="btn btn-outline-danger mr-1 remove-game" data-game="${id}">Remove</button><button class="btn btn-outline-primary">Add Time</button></section></article>`;
 }
 
 function handleAddGame() {
@@ -67,7 +77,9 @@ function handleClickOnGames(e) {
 }
 
 function handleRemoveGame(btn) {
-  console.dir(btn);
+  const id = +btn.dataset.game;
+  removeGameFromLibrary(id);
+  render();
 }
 
 const gamesUI = document.querySelector('.games');
