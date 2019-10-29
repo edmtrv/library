@@ -21,34 +21,30 @@ function addGameToLibrary(title, genre, price, description) {
 // UI
 
 function render() {
-  gamesLibrary.forEach(game => {
-    renderGame(game, gamesUI);
+  if (gamesLibrary.length > 0) gamesUI.innerHTML = '';
+  let row;
+  gamesLibrary.forEach((game, index) => {
+    if (index % 3 == 0) {
+      row = document.createElement('div');
+      row.classList.add('row', 'mt-3');
+      gamesUI.append(row);
+    }
+    renderGame(game, row);
   });
 }
 
-function renderGame(game, on) {
-  const div = document.createElement('div');
+function renderGame(game, row) {
+  const col = document.createElement('div');
 
-  div.classList.add('game');
-  div.textContent = game;
-
-  on.append(div);
+  col.classList.add('col-4');
+  const card = createGameCard(game);
+  col.innerHTML = card;
+  row.append(col);
 }
 
 function createGameCard({title, genre, price, description, hoursPlayed}) {
-  return `
-    <article class="card">
-      <section class="card-body">
-        <h5 class="card-title">${title}</h5>
-        <h6 class="card-subtitle mb-1">${genre}</h6>
-        <h6 class="card-subtitle mb-1">€${Price}</h6>
-        <h6 class="card-subtitle mb-2">Hours Played: ${hoursPlayed}</h6>
-        <p class="card-text">${description}</p>
-        <button class="btn btn-outline-danger">Remove</button>
-        <button class="btn btn-outline-primary">Add Time</button>
-      </section>
-    </article>
-  `;
+  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5>
+<h6 class="card-subtitle mb-1">${genre}</h6><h6 class="card-subtitle mb-1">€${price}</h6><h6 class="card-subtitle mb-2">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><button class="btn btn-outline-danger mr-1">Remove</button><button class="btn btn-outline-primary">Add Time</button></section></article>`;
 }
 
 
