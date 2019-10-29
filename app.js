@@ -46,7 +46,7 @@ function createGameCard({title, genre, price, description, hoursPlayed}) {
   return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-1">${genre}</h6><h6 class="card-subtitle mb-1">€${price}</h6><h6 class="card-subtitle mb-2">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><button class="btn btn-outline-danger mr-1">Remove</button><button class="btn btn-outline-primary">Add Time</button></section></article>`;
 }
 
-function handleAddGame() {
+function handleAddGame(e) {
   console.log(e);
 }
 
@@ -54,7 +54,7 @@ function handleAddGame() {
 const gamesUI = document.querySelector('.games');
 const addBookBtn = document.querySelector('.add-game');
 
-addBookBtn.addEventListener('click', handleAddGame);
+// addBookBtn.addEventListener('click', handleAddGame);
 
 addGameToLibrary('GTA V', 'Action', 29.99, 'The game is played from either a third-person or first-person perspective, and its world is navigated on foot or by vehicle. Players control the three lead protagonists throughout single-player and switch between them both during and outside missions.');
 
