@@ -1,3 +1,4 @@
+
 const gamesLibrary = [];
 
 function Game(title, genre, price, description) {
@@ -43,7 +44,7 @@ function renderGame(game, row) {
 }
 
 function createGameCard({title, genre, price, description, hoursPlayed}) {
-  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><button class="btn btn-outline-danger mr-1">Remove</button><button class="btn btn-outline-primary">Add Time</button></section></article>`;
+  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed}</h6><p class="card-text">${description}</p><button class="btn btn-outline-danger mr-1 remove-game">Remove</button><button class="btn btn-outline-primary">Add Time</button></section></article>`;
 }
 
 function handleAddGame() {
@@ -59,11 +60,22 @@ function handleAddGame() {
   render();
 }
 
+function handleClickOnGames(e) {
+  if (e.target.classList.contains('remove-game')) {
+    handleRemoveGame(e.target);
+  }
+}
+
+function handleRemoveGame(btn) {
+  console.dir(btn);
+}
 
 const gamesUI = document.querySelector('.games');
-const addBookBtn = document.querySelector('.add-game');
+const addGameBtn = document.querySelector('.add-game');
+const gamesArea = document.querySelector('.games');
 
-addBookBtn.addEventListener('click', handleAddGame);
+addGameBtn.addEventListener('click', handleAddGame);
+gamesArea.addEventListener('click', handleClickOnGames);
 
 addGameToLibrary('GTA V', 'Action', 29.99, 'The game is played from either a third-person or first-person perspective, and its world is navigated on foot or by vehicle. Players control the three lead protagonists throughout single-player and switch between them both during and outside missions.');
 
@@ -72,5 +84,6 @@ addGameToLibrary('Tom Clancy\'s Rainbow Six Siege', 'Shooter', 49.99, 'Each play
 addGameToLibrary('eFootball Pro Evolution Soccer 2020', 'Sports', 69.99,'The new game features a name change with the addition of \'eFootball\' within the title, symbolizing a push in the online gaming space with a focus on PESLeague and eFootball Pro tournaments.');
 
 addGameToLibrary('Rise of Industry', 'Tycoon', 17.99, 'The game sees players build and manage their industrial empire as they attempt to grow and expand in the early 20th century.');
+
 
 render();
