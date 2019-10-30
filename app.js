@@ -41,12 +41,13 @@ function removeGameFromLibrary(id) {
     ...gamesLibrary.slice(0, id),
     ...gamesLibrary.slice(id + 1)
   ];
+  localStorage.setItem('games', JSON.stringify(gamesLibrary));
 }
 
 // UI
 
 function render() {
-  if (gamesLibrary.length > 0) allCards.innerHTML = '';
+  // if (gamesLibrary.length == 0) allCards.innerHTML = '<p>No games yet</p>';
   let row;
   gamesLibrary.forEach((game, index) => {
     if (index % 3 == 0) {
