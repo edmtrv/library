@@ -47,7 +47,8 @@ function removeGameFromLibrary(id) {
 // UI
 
 function render() {
-  // if (gamesLibrary.length == 0) allCards.innerHTML = '<p>No games yet</p>';
+  allCards.innerHTML = '';
+  if (gamesLibrary.length == 0) allCards.innerHTML = '<p>No games yet</p>';
   let row;
   gamesLibrary.forEach((game, index) => {
     if (index % 3 == 0) {
