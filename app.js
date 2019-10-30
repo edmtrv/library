@@ -1,12 +1,25 @@
 
 let gamesLibrary = createLibrary(localStorage.getItem('games')) || [];
 
-function Game(title, genre, price, description) {
+function createLibrary(gamesData) {
+  if (!gamesData) return;
+
+  const library = [];
+  const parsedData = JSON.parse(gamesData);
+
+  for (let item of parsedData) {
+    library.push(new Game(...Object.values(item)));
+  }
+
+  return library;
+}
+
+function Game(title, genre, price, description, hoursPlayed = 0) {
   this.title = title;
   this.genre = genre;
   this.price = price;
   this.description = description;
-  this.hoursPlayed = 0;
+  this.hoursPlayed = hoursPlayed;
 }
 
 Game.prototype.addTime = function(minutes) {
