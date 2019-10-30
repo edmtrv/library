@@ -1,5 +1,7 @@
 ## Game Library
 
+[View in browser](https://edmtrv.github.io/library/)
+
 ### Technologies used
 
 - vanilla JavaScript
@@ -11,5 +13,3 @@
 - can remove a game from the library
 - can add and view playing time for each game
 - uses the localStorage API to save the library
-
-[View in browser](https://edmtrv.github.io/library/)
