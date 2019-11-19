@@ -14,18 +14,21 @@ function createLibrary(gamesData) {
   return library;
 }
 
-function Game(title, genre, price, description, hoursPlayed = 0) {
-  this.title = title;
-  this.genre = genre;
-  this.price = price;
-  this.description = description;
-  this.hoursPlayed = hoursPlayed;
+class Game {
+  constructor(title, genre, price, description, hoursPlayed = 0) {
+    this.title = title;
+    this.genre = genre;
+    this.price = price;
+    this.description = description;
+    this.hoursPlayed = hoursPlayed;
+  }
+
+  addTime() {
+    this.hoursPlayed += (+minutes / 60);
+    localStorage.setItem('games', JSON.stringify(gamesLibrary));
+  }
 }
 
-Game.prototype.addTime = function(minutes) {
-  this.hoursPlayed += (+minutes / 60);
-  localStorage.setItem('games', JSON.stringify(gamesLibrary));
-}
 
 function addGameToLibrary(title, genre, price, description) {
   const gameToAdd = new Game(title, genre, price, description);
@@ -69,7 +72,7 @@ function renderGame(game, id, row) {
   row.append(col);
 }
 
-function createGameCard({title, genre, price, description, hoursPlayed}, id) {
+function createGameCard({ title, genre, price, description, hoursPlayed }, id) {
   return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed.toFixed(2)}</h6><p class="card-text">${description}</p><div class="d-flex"><div class="mr-2"><button class="btn btn-outline-danger remove-game" data-game="${id}">Remove</button></div><div class="mr-1"><button class="btn btn-outline-primary add-time" data-game="${id}">Add Time</button></div><div class="w-25"><label for="minutes" class="sr-only">Minutes Played</label><input type="number" name="minutes" id="minutes-${id}" class="form-control" placeholder="Mins"></div></div>
   </section></article>`;
 }
