@@ -44,20 +44,11 @@ class Game {
 
   addTime(minutes) {
     this.hoursPlayed += (+minutes / 60);
-    localStorage.setItem('games', JSON.stringify(gamesLibrary));
+    localStorage.setItem('games', JSON.stringify(library.games));
   }
 }
 
 let library = new Library();
-console.log(library.games);
-
-function removeGameFromLibrary(id) {
-  gamesLibrary = [
-    ...gamesLibrary.slice(0, id),
-    ...gamesLibrary.slice(id + 1)
-  ];
-  localStorage.setItem('games', JSON.stringify(gamesLibrary));
-}
 
 // UI
 
@@ -120,8 +111,7 @@ function handleAddTime(btn) {
   const id = btn.dataset.game;
   const minutes = document.getElementById(`minutes-${id}`).value;
   if (minutes === '') return;
-  const game = gamesLibrary[id];
-  console.log(game);
+  const game = library.games[id];
   game.addTime(minutes);
   render();
 }
