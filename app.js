@@ -21,6 +21,7 @@ class Library {
   }
 
   _parseData(data) {
+    if (!data) return;
     const games = [];
     const parsed = JSON.parse(data);
 
