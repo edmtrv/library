@@ -1,4 +1,21 @@
 
+
+class Game {
+  constructor(title, genre, price, description, hoursPlayed = 0) {
+    this.title = title;
+    this.genre = genre;
+    this.price = price;
+    this.description = description;
+    this.hoursPlayed = hoursPlayed;
+  }
+
+  addTime(minutes) {
+    this.hoursPlayed += (+minutes / 60);
+    localStorage.setItem('games', JSON.stringify(gamesLibrary));
+  }
+}
+
+
 let gamesLibrary = createLibrary(localStorage.getItem('games')) || [];
 
 function createLibrary(gamesData) {
@@ -13,22 +30,6 @@ function createLibrary(gamesData) {
 
   return library;
 }
-
-class Game {
-  constructor(title, genre, price, description, hoursPlayed = 0) {
-    this.title = title;
-    this.genre = genre;
-    this.price = price;
-    this.description = description;
-    this.hoursPlayed = hoursPlayed;
-  }
-
-  addTime() {
-    this.hoursPlayed += (+minutes / 60);
-    localStorage.setItem('games', JSON.stringify(gamesLibrary));
-  }
-}
-
 
 function addGameToLibrary(title, genre, price, description) {
   const gameToAdd = new Game(title, genre, price, description);
