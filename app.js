@@ -1,4 +1,19 @@
+class Library {
+  constructor() {
+    this.games = this._parseData(localStorage.getItem('games')) || [];
+  }
 
+  _parseData(data) {
+    const games = [];
+    const parsed = JSON.parse(data);
+
+    for (let item of parsed) {
+      games.push(new Game(...Object.values(item)));
+    }
+
+    return games;
+  }
+}
 
 class Game {
   constructor(title, genre, price, description, hoursPlayed = 0) {
@@ -15,8 +30,10 @@ class Game {
   }
 }
 
+let library = new Library();
+console.log(library.games);
 
-let gamesLibrary = createLibrary(localStorage.getItem('games')) || [];
+// let gamesLibrary = createLibrary(localStorage.getItem('games')) || [];
 
 function createLibrary(gamesData) {
   if (!gamesData) return;
@@ -52,9 +69,9 @@ function removeGameFromLibrary(id) {
 
 function render() {
   allCards.innerHTML = '';
-  if (gamesLibrary.length == 0) allCards.innerHTML = '<p>No games yet</p>';
+  if (library.games.length == 0) allCards.innerHTML = '<p>No games yet</p>';
   let row;
-  gamesLibrary.forEach((game, index) => {
+  library.games.forEach((game, index) => {
     if (index % 3 == 0) {
       row = document.createElement('div');
       row.classList.add('row', 'mt-3');
