@@ -3,6 +3,15 @@ class Library {
     this.games = this._parseData(localStorage.getItem('games')) || [];
   }
 
+  addGame(title, genre, price, description) {
+    const game = new Game(title, genre, price, description);
+    this.games = [
+      ...this.games,
+      game
+    ];
+    localStorage.setItem('games', JSON.stringify(this.games));
+  }
+
   _parseData(data) {
     const games = [];
     const parsed = JSON.parse(data);
@@ -104,7 +113,7 @@ function handleAddGame() {
     field.value = '';
   }
 
-  addGameToLibrary(...game);
+  library.addGame(...game);
   render();
 }
 
