@@ -4,7 +4,7 @@
 
 ### Technologies used
 
-- vanilla JavaScript
+- Vanilla JavaScript
 - Bootstrap 4
 
 ### Features
