@@ -12,6 +12,14 @@ class Library {
     localStorage.setItem('games', JSON.stringify(this.games));
   }
 
+  removeGame(id) {
+    this.games = [
+      ...this.games.slice(0, id),
+      ...this.games.slice(id + 1)
+    ];
+    localStorage.setItem('games', JSON.stringify(this.games));
+  }
+
   _parseData(data) {
     const games = [];
     const parsed = JSON.parse(data);
@@ -41,30 +49,6 @@ class Game {
 
 let library = new Library();
 console.log(library.games);
-
-// let gamesLibrary = createLibrary(localStorage.getItem('games')) || [];
-
-function createLibrary(gamesData) {
-  if (!gamesData) return;
-
-  const library = [];
-  const parsedData = JSON.parse(gamesData);
-
-  for (let item of parsedData) {
-    library.push(new Game(...Object.values(item)));
-  }
-
-  return library;
-}
-
-function addGameToLibrary(title, genre, price, description) {
-  const gameToAdd = new Game(title, genre, price, description);
-  gamesLibrary = [
-    ...gamesLibrary,
-    gameToAdd
-  ];
-  localStorage.setItem('games', JSON.stringify(gamesLibrary));
-}
 
 function removeGameFromLibrary(id) {
   gamesLibrary = [
@@ -127,7 +111,7 @@ function handleClickOnGames(e) {
 
 function handleRemoveGame(btn) {
   const id = +btn.dataset.game;
-  removeGameFromLibrary(id);
+  library.removeGame(id);
   render();
 }
 
