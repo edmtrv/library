@@ -90,11 +90,12 @@
               <div class="form-group">
                 <label for="price">Price</label>
                 <input
-                  type="text"
+                  type="number"
                   name="price"
                   id="price"
                   class="form-control"
                   placeholder="In €"
+                  step="0.01"
                   required
                 />
               </div>
@@ -119,9 +120,8 @@
                 Close
               </button>
               <button
-                type="button"
-                class="btn btn-primary add-game"
-                data-dismiss="modal"
+                type="submit"
+                class="btn btn-primary"
                 >
                 Add Game
               </button>

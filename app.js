@@ -5,18 +5,12 @@ class Library {
 
   addGame(title, genre, price, description) {
     const game = new Game(title, genre, price, description);
-    this.games = [
-      ...this.games,
-      game
-    ];
+    this.games = [...this.games, game];
     localStorage.setItem('games', JSON.stringify(this.games));
   }
 
   removeGame(id) {
-    this.games = [
-      ...this.games.slice(0, id),
-      ...this.games.slice(id + 1)
-    ];
+    this.games = [...this.games.slice(0, id), ...this.games.slice(id + 1)];
     localStorage.setItem('games', JSON.stringify(this.games));
   }
 
@@ -43,7 +37,7 @@ class Game {
   }
 
   addTime(minutes) {
-    this.hoursPlayed += (+minutes / 60);
+    this.hoursPlayed += +minutes / 60;
     localStorage.setItem('games', JSON.stringify(library.games));
   }
 }
@@ -76,12 +70,15 @@ function renderGame(game, id, row) {
 }
 
 function createGameCard({ title, genre, price, description, hoursPlayed }, id) {
-  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed.toFixed(2)}</h6><p class="card-text">${description}</p><div class="d-flex"><div class="mr-2"><button class="btn btn-outline-danger remove-game" data-game="${id}">Remove</button></div><div class="mr-1"><button class="btn btn-outline-primary add-time" data-game="${id}">Add Time</button></div><div class="w-25"><label for="minutes" class="sr-only">Minutes Played</label><input type="number" name="minutes" id="minutes-${id}" class="form-control" placeholder="Mins"></div></div>
+  return `<article class="card"><section class="card-body"><h5 class="card-title">${title}</h5><h6 class="card-subtitle mb-2">Genre: ${genre}</h6><h6 class="card-subtitle mb-2">Price: €${price}</h6><h6 class="card-subtitle mb-3">Hours Played: ${hoursPlayed.toFixed(
+    2
+  )}</h6><p class="card-text">${description}</p><div class="d-flex"><div class="mr-2"><button class="btn btn-outline-danger remove-game" data-game="${id}">Remove</button></div><div class="mr-1"><button class="btn btn-outline-primary add-time" data-game="${id}">Add Time</button></div><div class="w-25"><label for="minutes" class="sr-only">Minutes Played</label><input type="number" name="minutes" id="minutes-${id}" class="form-control" placeholder="Mins"></div></div>
   </section></article>`;
 }
 
-function handleAddGame() {
-  const formFields = document.querySelector('.add-game-form').elements;
+function handleAddGame(e) {
+  e.preventDefault();
+  const formFields = e.target.elements;
   const game = [];
 
   for (let field of formFields) {
@@ -90,6 +87,7 @@ function handleAddGame() {
   }
 
   library.addGame(...game);
+  $('#newGameModal').modal('hide');
   render();
 }
 
@@ -117,10 +115,10 @@ function handleAddTime(btn) {
 }
 
 const allCards = document.querySelector('.games');
-const addGameBtn = document.querySelector('.add-game');
+const addGameForm = document.querySelector('.add-game-form');
 const addTimeBtn = document.querySelector('.add-time');
 
-addGameBtn.addEventListener('click', handleAddGame);
+addGameForm.addEventListener('submit', handleAddGame);
 allCards.addEventListener('click', handleClickOnGames);
 
 render();
